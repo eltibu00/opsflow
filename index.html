@@ -18,6 +18,91 @@
             padding: 20px;
         }
 
+        /* Password Screen Styles */
+        #passwordScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+        }
+
+        .password-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .password-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .password-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .password-btn:hover {
+            background: #5568d3;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Main Content (hidden by default) */
+        #mainContent {
+            display: none;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -181,140 +266,195 @@
             .filter-buttons {
                 justify-content: center;
             }
+
+            .password-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">⚡ OpsFlow</div>
-            <div class="tagline">Warehouse Operations Dashboard Hub</div>
-            
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalDashboards">9</div>
-                    <div class="stat-label">Dashboards</div>
+    <!-- Password Screen -->
+    <div id="passwordScreen">
+        <div class="password-container">
+            <div class="password-logo">🔒</div>
+            <h1 class="password-title">OpsFlow</h1>
+            <p class="password-subtitle">Enter password to access dashboards</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password" autocomplete="off">
+            <button onclick="checkPassword()" class="password-btn">Access Dashboards</button>
+            <p class="error-message" id="errorMessage">❌ Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until password is correct) -->
+    <div id="mainContent">
+        <div class="container">
+            <header>
+                <div class="logo">⚡ OpsFlow</div>
+                <div class="tagline">Warehouse Operations Dashboard Hub</div>
+                
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDashboards">9</div>
+                        <div class="stat-label">Dashboards</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">6</div>
-                    <div class="stat-label">Categories</div>
+            </header>
+
+            <div class="controls">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search dashboards...">
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="B2B">B2B</button>
+                    <button class="filter-btn" data-category="B2C">B2C</button>
+                    <button class="filter-btn" data-category="Quality">Quality</button>
+                    <button class="filter-btn" data-category="Picking">Picking</button>
+                    <button class="filter-btn" data-category="VAS">VAS</button>
+                    <button class="filter-btn" data-category="Support">Support</button>
                 </div>
             </div>
-        </header>
 
-        <div class="controls">
-            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search dashboards...">
-            
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-category="all">All</button>
-                <button class="filter-btn" data-category="B2B">B2B</button>
-                <button class="filter-btn" data-category="B2C">B2C</button>
-                <button class="filter-btn" data-category="Quality">Quality</button>
-                <button class="filter-btn" data-category="Picking">Picking</button>
-                <button class="filter-btn" data-category="VAS">VAS</button>
-                <button class="filter-btn" data-category="Support">Support</button>
+            <div class="dashboard-grid" id="dashboardGrid">
+                <!-- B2B Ship Request -->
+                <a href="https://eltibu00.github.io/B2B-Ship-Request-Dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="B2B">
+                    <div class="card-icon">📦</div>
+                    <div class="card-title">B2B Ship Request</div>
+                    <div class="card-description">
+                        Manage B2B orders with email authentication, SLA tracking, and automatic archiving
+                    </div>
+                    <span class="card-category">B2B</span>
+                </a>
+
+                <!-- B2C Dashboard -->
+                <a href="https://eltibu00.github.io/b2c-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="B2C">
+                    <div class="card-icon">🛒</div>
+                    <div class="card-title">B2C Dashboard</div>
+                    <div class="card-description">
+                        Real-time B2C order tracking with client-specific SLA times and status monitoring
+                    </div>
+                    <span class="card-category">B2C</span>
+                </a>
+
+                <!-- QC Dashboard -->
+                <a href="https://eltibu00.github.io/qc-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Quality">
+                    <div class="card-icon">✓</div>
+                    <div class="card-title">QC Dashboard</div>
+                    <div class="card-description">
+                        Quality Control tracking and performance metrics for inspection processes
+                    </div>
+                    <span class="card-category">Quality</span>
+                </a>
+
+                <!-- Order Dashboard -->
+                <a href="https://eltibu00.github.io/order-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Orders">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Order Dashboard</div>
+                    <div class="card-description">
+                        Comprehensive order tracking and management system
+                    </div>
+                    <span class="card-category">Orders</span>
+                </a>
+
+                <!-- Daily Pick Log -->
+                <a href="https://eltibu00.github.io/daily-pick-log/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Picking">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Daily Pick Log</div>
+                    <div class="card-description">
+                        Track daily picking operations and productivity metrics
+                    </div>
+                    <span class="card-category">Picking</span>
+                </a>
+
+                <!-- Picking Tracker -->
+                <a href="https://eltibu00.github.io/picking-tracker/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Picking">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Picking Tracker</div>
+                    <div class="card-description">
+                        Monitor picking progress and team performance
+                    </div>
+                    <span class="card-category">Picking</span>
+                </a>
+
+                <!-- Scanner Tracker -->
+                <a href="https://eltibu00.github.io/scanner-tracker/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Equipment">
+                    <div class="card-icon">📱</div>
+                    <div class="card-title">Scanner Device Tracker</div>
+                    <div class="card-description">
+                        Track and manage warehouse scanning equipment, assignments, and availability
+                    </div>
+                    <span class="card-category">Equipment</span>
+                </a>
+
+                <!-- VAS Production Scheduler -->
+                <a href="https://eltibu00.github.io/VAS-Production-Scheduler/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="VAS">
+                    <div class="card-icon">⏱️</div>
+                    <div class="card-title">VAS Production Scheduler</div>
+                    <div class="card-description">
+                        Production scheduling with real-time profitability analysis and labor cost calculations
+                    </div>
+                    <span class="card-category">VAS</span>
+                </a>
+
+                <!-- Ticket System Dashboard -->
+                <a href="https://eltibu00.github.io/TicketSystem-Dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Support">
+                    <div class="card-icon">🎫</div>
+                    <div class="card-title">Ticket System</div>
+                    <div class="card-description">
+                        Track and manage operational tickets and issues
+                    </div>
+                    <span class="card-category">Support</span>
+                </a>
             </div>
+
+            <footer>
+                Built with ⚡ by Roberto | Stacia Americas Warehouse Operations
+            </footer>
         </div>
-
-        <div class="dashboard-grid" id="dashboardGrid">
-            <!-- B2B Ship Request -->
-            <a href="https://eltibu00.github.io/B2B-Ship-Request-Dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="B2B">
-                <div class="card-icon">📦</div>
-                <div class="card-title">B2B Ship Request</div>
-                <div class="card-description">
-                    Manage B2B orders with email authentication, SLA tracking, and automatic archiving
-                </div>
-                <span class="card-category">B2B</span>
-            </a>
-
-            <!-- B2C Dashboard -->
-            <a href="https://eltibu00.github.io/b2c-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="B2C">
-                <div class="card-icon">🛒</div>
-                <div class="card-title">B2C Dashboard</div>
-                <div class="card-description">
-                    Real-time B2C order tracking with client-specific SLA times and status monitoring
-                </div>
-                <span class="card-category">B2C</span>
-            </a>
-
-            <!-- QC Dashboard -->
-            <a href="https://eltibu00.github.io/qc-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Quality">
-                <div class="card-icon">✓</div>
-                <div class="card-title">QC Dashboard</div>
-                <div class="card-description">
-                    Quality Control tracking and performance metrics for inspection processes
-                </div>
-                <span class="card-category">Quality</span>
-            </a>
-
-            <!-- Order Dashboard -->
-            <a href="https://eltibu00.github.io/order-dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Orders">
-                <div class="card-icon">📊</div>
-                <div class="card-title">Order Dashboard</div>
-                <div class="card-description">
-                    Comprehensive order tracking and management system
-                </div>
-                <span class="card-category">Orders</span>
-            </a>
-
-            <!-- Daily PickUp Log -->
-            <a href="https://eltibu00.github.io/daily-pick-log/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Picking">
-                <div class="card-icon">📝</div>
-                <div class="card-title">Daily PickUp Log</div>
-                <div class="card-description">
-                    Track daily picking operations and productivity metrics
-                </div>
-                <span class="card-category">Picking</span>
-            </a>
-
-            <!-- Picking Tracker -->
-            <a href="https://eltibu00.github.io/picking-tracker/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Picking">
-                <div class="card-icon">🎯</div>
-                <div class="card-title">Picking Tracker</div>
-                <div class="card-description">
-                    Monitor picking progress and team performance
-                </div>
-                <span class="card-category">Picking</span>
-            </a>
-
-            <!-- Scanner Tracker -->
-            <a href="https://eltibu00.github.io/scanner-tracker/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Equipment">
-                <div class="card-icon">📱</div>
-                <div class="card-title">Scanner Device Tracker</div>
-                <div class="card-description">
-                    Track and manage warehouse scanning equipment, assignments, and availability
-                </div>
-                <span class="card-category">Equipment</span>
-            </a>
-
-            <!-- VAS Production Scheduler -->
-            <a href="https://eltibu00.github.io/VAS-Production-Scheduler/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="VAS">
-                <div class="card-icon">⏱️</div>
-                <div class="card-title">VAS Production Scheduler</div>
-                <div class="card-description">
-                    Production scheduling with real-time profitability analysis and labor cost calculations
-                </div>
-                <span class="card-category">VAS</span>
-            </a>
-
-            <!-- Ticket System Dashboard -->
-            <a href="https://eltibu00.github.io/TicketSystem-Dashboard/" class="dashboard-card" target="_blank" rel="noopener noreferrer" data-category="Support">
-                <div class="card-icon">🎫</div>
-                <div class="card-title">Ticket System</div>
-                <div class="card-description">
-                    Track and manage operational tickets and issues
-                </div>
-                <span class="card-category">Support</span>
-            </a>
-        </div>
-
-        <footer>
-            Built with ⚡ by Roberto | Warehouse Operations
-        </footer>
     </div>
 
     <script>
-        // Search functionality
+        // PASSWORD PROTECTION
+        const CORRECT_PASSWORD = "Stacia2024!";  // 👈 CHANGE THIS PASSWORD
+
+        // Check if password was previously entered (saved in session)
+        if (sessionStorage.getItem('opsflowAccess') === 'granted') {
+            showDashboard();
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            const userPassword = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (userPassword === CORRECT_PASSWORD) {
+                // Correct password - save access and show dashboard
+                sessionStorage.setItem('opsflowAccess', 'granted');
+                showDashboard();
+            } else {
+                // Wrong password - show error
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('passwordScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+
+        // SEARCH AND FILTER FUNCTIONALITY
         const searchBox = document.getElementById('searchBox');
         const dashboardCards = document.querySelectorAll('.dashboard-card');
         const filterButtons = document.querySelectorAll('.filter-btn');
