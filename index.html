@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpsFlow - Warehouse Operations Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .card-category {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2em;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">⚡ OpsFlow</div>
+            <div class="tagline">Warehouse Operations Dashboard Hub</div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- QC Dashboard -->
+            <a href="https://yourusername.github.io/qc-dashboard/" class="dashboard-card">
+                <div class="card-icon">✓</div>
+                <div class="card-title">QC Dashboard</div>
+                <div class="card-description">
+                    Quality Control tracking and performance metrics for inspection processes
+                </div>
+                <span class="card-category">Quality</span>
+            </a>
+
+            <!-- B2B Ship Request -->
+            <a href="https://yourusername.github.io/b2b-ship-request/" class="dashboard-card">
+                <div class="card-icon">📦</div>
+                <div class="card-title">B2B Ship Request</div>
+                <div class="card-description">
+                    Manage B2B orders with email authentication, SLA tracking, and automatic archiving
+                </div>
+                <span class="card-category">B2B</span>
+            </a>
+
+            <!-- B2C Order Dashboard -->
+            <a href="https://yourusername.github.io/b2c-order-dashboard/" class="dashboard-card">
+                <div class="card-icon">🛒</div>
+                <div class="card-title">B2C Order Dashboard</div>
+                <div class="card-description">
+                    Real-time B2C order tracking with client-specific SLA times and status monitoring
+                </div>
+                <span class="card-category">B2C</span>
+            </a>
+
+            <!-- Scanner Device Tracker -->
+            <a href="https://yourusername.github.io/scanner-tracker/" class="dashboard-card">
+                <div class="card-icon">📱</div>
+                <div class="card-title">Scanner Device Tracker</div>
+                <div class="card-description">
+                    Track and manage warehouse scanning equipment, assignments, and availability
+                </div>
+                <span class="card-category">Equipment</span>
+            </a>
+
+            <!-- BOL Tracker -->
+            <a href="https://yourusername.github.io/bol-tracker/" class="dashboard-card">
+                <div class="card-icon">📋</div>
+                <div class="card-title">BOL Tracker</div>
+                <div class="card-description">
+                    Bill of lading tracking for pickup operations with file attachments and auto-archiving
+                </div>
+                <span class="card-category">Shipping</span>
+            </a>
+
+            <!-- VAS Scheduling -->
+            <a href="https://yourusername.github.io/vas-scheduling/" class="dashboard-card">
+                <div class="card-icon">⏱️</div>
+                <div class="card-title">VAS Scheduling</div>
+                <div class="card-description">
+                    Production scheduling with real-time profitability analysis and labor cost calculations
+                </div>
+                <span class="card-category">VAS</span>
+            </a>
+        </div>
+
+        <footer>
+            Built with ⚡ by Roberto | Stacia Americas Warehouse Operations
+        </footer>
+    </div>
+</body>
+</html>
