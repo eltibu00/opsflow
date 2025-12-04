@@ -577,7 +577,7 @@
         // Load workload data
         async function loadWorkloadData() {
             try {
-                const response = await fetch(SHEET_URL + '?action=getWorkload');
+               const response = await fetch(SHEET_URL + '?action=getWorkloadData');
                 const data = await response.json();
                 
                 if (data.error) {
@@ -632,7 +632,7 @@
             document.getElementById('line-items-table').style.display = 'none';
 
             try {
-                const response = await fetch(SHEET_URL + '?action=getOrder&orderNumber=' + encodeURIComponent(orderNumber));
+                const response = await fetch(SHEET_URL + '?action=getOrderData&orderNumber=' + encodeURIComponent(orderNumber));
                 const data = await response.json();
                 
                 if (data.error) {
