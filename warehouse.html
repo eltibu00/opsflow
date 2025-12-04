@@ -577,14 +577,14 @@
         // Load workload data
         async function loadWorkloadData() {
             try {
-               const response = await fetch(SHEET_URL + '?action=getWorkloadData');
+                const response = await fetch(SHEET_URL + '?action=getWorkloadData');
                 const data = await response.json();
                 
                 if (data.error) {
                     throw new Error(data.error);
                 }
 
-                // Update totals - FIXED TO USE NEW FIELD NAMES
+                // Update totals
                 document.getElementById('total-cases').textContent = data.totals.cases.toLocaleString();
                 document.getElementById('total-eaches').textContent = data.totals.eaches.toLocaleString();
                 document.getElementById('total-pallets').textContent = data.totals.pallets.toLocaleString();
@@ -592,7 +592,7 @@
                 document.getElementById('total-lines').textContent = data.totals.lines.toLocaleString();
                 document.getElementById('unique-orders').textContent = data.totals.uniqueOrders.toLocaleString();
 
-                // Update client breakdown - FIXED TO SHOW BOTH LINES AND ORDERS
+                // Update client breakdown
                 const tbody = document.querySelector('#client-breakdown tbody');
                 tbody.innerHTML = '';
                 
@@ -696,85 +696,24 @@
 
         // Load clients for pallet planner
         async function loadPlannerClients() {
-            try {
-                const response = await fetch(SHEET_URL + '?action=getClients');
-                const data = await response.json();
-                
-                const select = document.getElementById('planner-client');
-                select.innerHTML = '<option value="">Select Client...</option>';
-                
-                data.clients.forEach(client => {
-                    const option = document.createElement('option');
-                    option.value = client;
-                    option.textContent = client;
-                    select.appendChild(option);
-                });
-
-            } catch (error) {
-                console.error('Error loading clients:', error);
-            }
+            // Pallet planner functionality - not fully implemented yet
+            console.log('Pallet planner not yet implemented');
         }
 
         // Load items for selected client
         async function loadClientItems() {
-            const client = document.getElementById('planner-client').value;
-            if (!client) return;
-
-            try {
-                const response = await fetch(SHEET_URL + '?action=getClientItems&client=' + encodeURIComponent(client));
-                const data = await response.json();
-                
-                const select = document.getElementById('planner-sku');
-                select.innerHTML = '<option value="">Select SKU...</option>';
-                
-                data.items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = JSON.stringify(item);
-                    option.textContent = `${item.sku} - ${item.description}`;
-                    select.appendChild(option);
-                });
-
-            } catch (error) {
-                console.error('Error loading items:', error);
-            }
+            // Pallet planner functionality - not fully implemented yet
+            console.log('Load client items not yet implemented');
         }
 
         // Calculate pallets
         function calculatePallets() {
-            const skuData = document.getElementById('planner-sku').value;
-            const qty = parseInt(document.getElementById('planner-qty').value) || 0;
-            const palletType = document.getElementById('pallet-type').value;
-
-            if (!skuData || !qty) {
-                document.getElementById('units-per-pallet').textContent = '-';
-                document.getElementById('pallets-needed').textContent = '-';
-                document.getElementById('cases-needed').textContent = '-';
-                document.getElementById('eaches-needed').textContent = '-';
-                document.getElementById('item-footprint').textContent = '- sq in';
-                return;
-            }
-
-            try {
-                const item = JSON.parse(skuData);
-                
-                const unitsPerPallet = palletType === '48x40' ? item.unitsPer48x40 : item.unitsPer47x31;
-                const palletsNeeded = Math.ceil(qty / unitsPerPallet);
-                const cases = Math.floor(qty / item.casePack);
-                const eaches = qty % item.casePack;
-
-                document.getElementById('units-per-pallet').textContent = unitsPerPallet.toLocaleString();
-                document.getElementById('pallets-needed').textContent = palletsNeeded.toLocaleString();
-                document.getElementById('cases-needed').textContent = cases.toLocaleString();
-                document.getElementById('eaches-needed').textContent = eaches.toLocaleString();
-                document.getElementById('item-footprint').textContent = item.unitCube.toFixed(2) + ' sq in';
-
-            } catch (error) {
-                console.error('Error calculating pallets:', error);
-            }
+            // Pallet planner functionality - not fully implemented yet
+            console.log('Calculate pallets not yet implemented');
         }
 
-        // Load initial data
-        window.addEventListener('load', () => {
+        // Load initial data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
             loadWorkloadData();
         });
     </script>
